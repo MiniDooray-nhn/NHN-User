@@ -1,0 +1,28 @@
+###/user/{UserId}
+GET http://localhost:8080/user/1
+
+###
+
+POST http://localhost:8080/user
+Content-Type: application/json
+
+{
+  "id": "testId",
+  "password": "testPass",
+  "email": "testEmail",
+  "name": "testName"
+}
+
+
+### /user/{UserId}
+PUT http://localhost:8080/user/1
+Content-Type: application/json
+
+{
+  "email": "modifyEmail",
+  "password": "modifyPass",
+  "name": "modifyName"
+}
+
+### /user/{UserId}
+DELETE http://localhost:8080/user/testId

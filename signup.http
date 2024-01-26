@@ -1,0 +1,8 @@
+### Login 권한 체크하는 api
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "userId": "1",
+  "password": "asd"
+}
