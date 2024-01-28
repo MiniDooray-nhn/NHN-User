@@ -14,6 +14,8 @@
 	<name>account</name>
 	<description>Account API project for Mini dooray </description>
 	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 		<jacoco.version>0.8.8</jacoco.version>
 		<java.version>17</java.version>
 	</properties>
