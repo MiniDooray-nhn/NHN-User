@@ -5,6 +5,8 @@ import com.nhnacademy.account.dto.UserModifyRequest;
 import com.nhnacademy.account.dto.UserRegisterRequest;
 import com.nhnacademy.account.dto.UserResponse;
 import com.nhnacademy.account.service.UserService;
+import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,7 +34,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserResponse> createUser(@RequestBody UserRegisterRequest userRegisterRequest) {
+    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserRegisterRequest userRegisterRequest) {
 
 
         UserResponse userResponse = userService.createUser(userRegisterRequest);
@@ -42,7 +44,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseEntity<UserResponse> modifyUser(@PathVariable(name = "id") String id,
-                                                   @RequestBody UserModifyRequest userModifyRequest) {
+                                                   @Valid @RequestBody UserModifyRequest userModifyRequest) {
 
         UserResponse userResponse = userService.modifyUserById(id, userModifyRequest);
         return new ResponseEntity<>(userResponse, HttpStatus.OK);
