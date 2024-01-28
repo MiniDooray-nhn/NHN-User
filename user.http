@@ -1,9 +1,9 @@
 ###/user/{UserId}
-GET http://localhost:8080/user/1
+GET http://localhost:9999/user/1
 
 ###
 
-POST http://localhost:8080/user
+POST http://localhost:9999/user
 Content-Type: application/json
 
 {
@@ -15,7 +15,7 @@ Content-Type: application/json
 
 
 ### /user/{UserId}
-PUT http://localhost:8080/user/1
+PUT http://localhost:9999/user/1
 Content-Type: application/json
 
 {
@@ -25,4 +25,4 @@ Content-Type: application/json
 }
 
 ### /user/{UserId}
-DELETE http://localhost:8080/user/testId
+DELETE http://localhost:9999/user/testId
