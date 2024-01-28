@@ -101,6 +101,8 @@ public class UserService {
         UserStatus userStatus =
                 userStatusRepository.findById(MEMBER).orElseThrow(UserStatusIsNotExistException::new);
 
+
+
         User user = new User();
 
         user.setCreatedAt(LocalDate.now());

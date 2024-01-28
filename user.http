@@ -7,7 +7,7 @@ POST http://localhost:9999/user
 Content-Type: application/json
 
 {
-  "id": "testId",
+  "id": "testId2123122",
   "password": "testPass",
   "email": "testEmail",
   "name": "testName"
@@ -25,4 +25,4 @@ Content-Type: application/json
 }
 
 ### /user/{UserId}
-DELETE http://localhost:9999/user/testId
+DELETE http://localhost:9999/user/testId3asdasd3
