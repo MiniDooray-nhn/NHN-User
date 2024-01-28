@@ -7,6 +7,7 @@ import com.nhnacademy.account.dto.UserAuthDto;
 import com.nhnacademy.account.dto.UserModifyRequest;
 import com.nhnacademy.account.dto.UserRegisterRequest;
 import com.nhnacademy.account.dto.UserResponse;
+import com.nhnacademy.account.exception.UserAlreadyExistException;
 import com.nhnacademy.account.exception.UserNotExistException;
 import com.nhnacademy.account.exception.UserNotValidateException;
 import com.nhnacademy.account.exception.UserStatusIsNotExistException;
@@ -19,6 +20,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
+
+    private static final Integer MEMBER = 1;
+    private static final Integer NOT_MEMBER = 2;
 
 
     private final UserRepository userRepository;
@@ -36,7 +40,7 @@ public class UserService {
         User user = userRepository.findById(userId).orElseThrow(UserNotExistException::new);
 
 
-        if (user.getUserStatus().getId().equals(2)) {
+        if (user.getUserStatus().getId().equals(NOT_MEMBER)) {
             throw new UserNotValidateException();
         }
 
@@ -48,12 +52,13 @@ public class UserService {
 
         User user = userRepository.findById(userId).orElseThrow(UserNotExistException::new);
 
-        if (user.getUserStatus().getId().equals(2)) {
+        if (user.getUserStatus().getId().equals(NOT_MEMBER)) {
             throw new UserNotValidateException();
         }
 
 
-        UserStatus userStatus = userStatusRepository.findById(2).orElseThrow(UserNotExistException::new);
+        UserStatus userStatus =
+                userStatusRepository.findById(NOT_MEMBER).orElseThrow(UserNotExistException::new);
 
         user.setUserStatus(userStatus);
 
@@ -66,7 +71,7 @@ public class UserService {
 
         User loginAuth = userRepository.findById(loginRequest.getUserId()).orElseThrow(UserNotExistException::new);
 
-        if (loginAuth.getUserStatus().equals(2)) {
+        if (loginAuth.getUserStatus().equals(NOT_MEMBER)) {
             throw new UserNotValidateException();
         }
 
@@ -81,7 +86,7 @@ public class UserService {
 
         User user = userRepository.findById(userId).orElseThrow(UserNotExistException::new);
 
-        if (user.getUserStatus().getId().equals(2)) {
+        if (user.getUserStatus().getId().equals(NOT_MEMBER)) {
             throw new UserNotValidateException();
         }
         user.setUserByModifyRequest(modifyRequest);
@@ -93,7 +98,8 @@ public class UserService {
     public UserResponse createUser(UserRegisterRequest userRegisterRequest) {
 
 
-        UserStatus userStatus = userStatusRepository.findById(1).orElseThrow(UserStatusIsNotExistException::new);
+        UserStatus userStatus =
+                userStatusRepository.findById(MEMBER).orElseThrow(UserStatusIsNotExistException::new);
 
         User user = new User();
 
@@ -104,6 +110,10 @@ public class UserService {
         user.setId(userRegisterRequest.getId());
         user.setEmail(userRegisterRequest.getEmail());
 
+
+        if (userRepository.findById(user.getId()).isPresent()) {
+            throw new UserAlreadyExistException();
+        }
 
         user = userRepository.save(user);
 
