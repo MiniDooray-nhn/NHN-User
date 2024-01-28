@@ -71,7 +71,7 @@ public class UserService {
 
         User loginAuth = userRepository.findById(loginRequest.getUserId()).orElseThrow(UserNotExistException::new);
 
-        if (loginAuth.getUserStatus().equals(NOT_MEMBER)) {
+        if (loginAuth.getUserStatus().getId().equals(NOT_MEMBER)) {
             throw new UserNotValidateException();
         }
 
@@ -100,7 +100,6 @@ public class UserService {
 
         UserStatus userStatus =
                 userStatusRepository.findById(MEMBER).orElseThrow(UserStatusIsNotExistException::new);
-
 
 
         User user = new User();
